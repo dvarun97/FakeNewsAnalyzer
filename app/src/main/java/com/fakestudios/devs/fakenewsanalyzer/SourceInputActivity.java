@@ -22,7 +22,7 @@ import java.util.Iterator;
 
 public class SourceInputActivity extends AppCompatActivity {
 
-    Button analyzeBUtton,clearButton;
+    Button analyzeButton,clearButton;
     EditText sourceEdittext;
     String domain;
 
@@ -31,7 +31,7 @@ public class SourceInputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_input);
 
-        analyzeBUtton = (Button) findViewById(R.id.source_analyze_button);
+        analyzeButton = (Button) findViewById(R.id.source_analyze_button);
         clearButton = (Button) findViewById(R.id.source_clear_button);
         sourceEdittext = (EditText) findViewById(R.id.source_input_edittext);
 
@@ -41,6 +41,19 @@ public class SourceInputActivity extends AppCompatActivity {
                 sourceEdittext.setText("");
             }
         });
+
+        analyzeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                analyzeAction();
+            }
+        });
+
+
+
+    }
+
+    private void analyzeAction(){
 
         String url = sourceEdittext.getText().toString();
         try{
@@ -78,7 +91,6 @@ public class SourceInputActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
     }
 
