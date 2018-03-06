@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FakeNewsAnalyzer</string>
+    <string name="update_sources">Update Sources</string>
 </resources>

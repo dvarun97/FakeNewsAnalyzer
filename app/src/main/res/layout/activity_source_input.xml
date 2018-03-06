@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
 
@@ -19,6 +19,7 @@
             android:id="@+id/source_input_edittext"
             android:hint="Enter URL"
             />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -38,8 +39,23 @@
                 android:text="Analyze"
                 android:id="@+id/source_analyze_button"
                 android:layout_weight="1"/>
-
-
         </LinearLayout>
+
+        <Button
+            android:id="@+id/update_sources_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_sources"
+            android:layout_gravity="center_horizontal" />
+
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"/>
+
     </LinearLayout>
 </LinearLayout>
