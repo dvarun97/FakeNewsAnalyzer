@@ -19,11 +19,37 @@
             android:text="Result will be displayed here"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_type1_textview"
+            android:text="type 1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_type2_textview"
+            android:text="type 2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/result_type3_textview"
+            android:text="type 3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/result_notes_textview"
+            android:text="notes"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="home"
             android:id="@+id/result_home_button"/>
+
+
     </LinearLayout>
 
 
