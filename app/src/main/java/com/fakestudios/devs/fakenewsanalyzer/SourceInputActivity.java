@@ -36,6 +36,7 @@ import java.net.URL;
 public class SourceInputActivity extends AppCompatActivity {
 
     Button analyzeBUtton,clearButton, updateSourcesButton;
+    Button analyzeButton,clearButton;
     EditText sourceEdittext;
     String domain;
     ProgressBar progressBar;
@@ -45,6 +46,7 @@ public class SourceInputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_input);
 
+        analyzeButton = (Button) findViewById(R.id.source_analyze_button);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         analyzeBUtton = (Button) findViewById(R.id.source_analyze_button);
@@ -59,6 +61,19 @@ public class SourceInputActivity extends AppCompatActivity {
                 sourceEdittext.setText("");
             }
         });
+
+        analyzeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                analyzeAction();
+            }
+        });
+
+
+
+    }
+
+    private void analyzeAction(){
 
         updateSourcesButton.setOnClickListener( new View.OnClickListener(){
             @Override
@@ -104,7 +119,6 @@ public class SourceInputActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
     }
 
