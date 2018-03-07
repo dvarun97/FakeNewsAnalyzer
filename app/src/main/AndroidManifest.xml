@@ -18,8 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SourceInputActivity" />
-        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".SourceInputActivity" android:label="@string/source_analyser"/>
+        <activity android:name=".ResultActivity" />
+        <activity android:name=".AboutActivity" android:label="@string/about" />
+        <activity android:name=".HelpActivity" android:label="@string/help"></activity>
     </application>
 
 </manifest>

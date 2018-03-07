@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,55 +7,88 @@
     tools:context="com.fakestudios.devs.fakenewsanalyzer.SourceInputActivity">
 
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
 
 
         <EditText
+            android:id="@+id/source_input_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/source_input_edittext"
-            android:hint="Enter URL"
-            />
+            android:layout_margin="8dp"
+            android:hint="Enter URL" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear"
                 android:id="@+id/source_clear_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/roundbutton"
+                android:text="Clear" />
 
 
             <Button
+                android:id="@+id/source_analyze_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Analyze"
-                android:id="@+id/source_analyze_button"
-                android:layout_weight="1"/>
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/roundbutton"
+                android:text="Analyze" />
+
+            <ImageButton
+                android:id="@+id/clipboard_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_clipboard"
+                android:backgroundTint="@color/lightGray"
+                android:layout_margin="8dp"
+                android:layout_gravity="center"/>
+
         </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal">
+
+
 
         <Button
             android:id="@+id/update_sources_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/update_sources"
-            android:layout_gravity="center_horizontal" />
-
+            android:layout_margin="8dp"
+            android:background="@drawable/roundbutton"
+            android:padding="8dp"
+            android:text="@string/update_sources" />
 
         <ProgressBar
             android:id="@+id/progressbar"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"/>
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>
