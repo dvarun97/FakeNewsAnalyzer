@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,19 +125,18 @@ public class SourceInputActivity extends AppCompatActivity {
             JSONObject res=null;
             String key=null;
             boolean domainExists=false;
-            while(iterator.hasNext()){
+            while(iterator.hasNext() && !domainExists){
                 key = (String)iterator.next();
                 if(key.equals(domain)){
                     res = sourceObj.getJSONObject(key);
                     domainExists=true;
-                    break;
                 }
             }
             if(domainExists){
-                displayResult(key,res.getString("type"),res.getString("2nd type"),res.getString("3rd type"),res.getString("Source Notes (things to know?)"),domainExists);
+                displayResult(domain,res.getString("type"),res.getString("2nd type"),res.getString("3rd type"),res.getString("Source Notes (things to know?)"),domainExists);
             }
             else{
-                displayResult(key,"","","","",domainExists);
+                displayResult(domain,"","","","",domainExists);
             }
 
 
@@ -160,14 +160,36 @@ public class SourceInputActivity extends AppCompatActivity {
     }
 
     public static String getDomainName(String url) throws URISyntaxException {
+        if(url.startsWith("www."))
+        {
+            url="http://"+url;
+        }
+        else if(url.startsWith("http"))
+        {
+        }
+        else
+        {
+            url="http://www."+url;
+        }
         URI uri = new URI(url);
         String domain = uri.getHost();
         return domain.startsWith("www.") ? domain.substring(4) : domain;
+//        URL uri = null;
+//        String domain = null;
+//        try {
+//            uri = new URL(url);
+//            domain = uri.getHost();
+//            Log.d("domain",domain);
+//            return domain.startsWith("www.") ? domain.substring(4) : domain;
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static String AssetJSONFile (String filename, Context context) throws IOException {
         AssetManager manager = context.getAssets();
         InputStream file = manager.open(filename);
+//        FileInputStream file = openFileInput(SOURCES_FILE_NAME);
         byte[] formArray = new byte[file.available()];
         file.read(formArray);
         file.close();

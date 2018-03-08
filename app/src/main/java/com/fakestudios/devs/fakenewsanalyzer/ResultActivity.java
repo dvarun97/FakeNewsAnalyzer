@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
     TextView resultTextview,type1Textview,type2Textview,type3Textview,notesTextview, probablyRealTextView;
+    LinearLayout notesLL;
     Button homeButton;
 
     @Override
@@ -17,6 +19,7 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        notesLL = findViewById(R.id.notes_ll);
         resultTextview = (TextView) findViewById(R.id.result_textview);
         type1Textview = (TextView) findViewById(R.id.result_type1_textview);
         type2Textview = (TextView) findViewById(R.id.result_type2_textview);
@@ -40,16 +43,37 @@ public class ResultActivity extends AppCompatActivity {
         if(intent.getBooleanExtra("domainExists",false)){
             resultTextview.setText(intent.getStringExtra("domain"));
             type1Textview.setText(intent.getStringExtra("type1"));
-            type2Textview.setText(intent.getStringExtra("type2"));
-            type3Textview.setText(intent.getStringExtra("type3"));
-            notesTextview.setText(intent.getStringExtra("notes"));
+
+            if(intent.getStringExtra("type2").length() != 0){
+                type2Textview.setText(intent.getStringExtra("type2"));
+            }
+            else{
+                type2Textview.setVisibility(View.GONE);
+            }
+
+            if(intent.getStringExtra("type3").length() != 0){
+                type3Textview.setText(intent.getStringExtra("type3"));
+            }
+            else{
+                type3Textview.setVisibility(View.GONE);
+            }
+
+            if(intent.getStringExtra("notes").length() != 0){
+                notesTextview.setText(intent.getStringExtra("notes"));
+            }
+            else{
+                notesLL.setVisibility(View.GONE);
+            }
+
+
+
         }
         else{
             probablyRealTextView.setVisibility(View.VISIBLE);
             type1Textview.setVisibility(View.GONE);
             type2Textview.setVisibility(View.GONE);
             type3Textview.setVisibility(View.GONE);
-            notesTextview.setVisibility(View.GONE);
+            notesLL.setVisibility(View.GONE);
         }
 
     }
