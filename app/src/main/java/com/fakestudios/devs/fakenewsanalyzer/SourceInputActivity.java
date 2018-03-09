@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -49,6 +51,7 @@ public class SourceInputActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     private final String SOURCES_FILE_NAME = "sources.json";
+    private final String HISTORY_FILE_NAME = "history.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,31 @@ public class SourceInputActivity extends AppCompatActivity {
         updateSourcesButton = (Button) findViewById(R.id.update_sources_button);
 
         sourceEdittext = (EditText) findViewById(R.id.source_input_edittext);
+
+
+        //disabling analyse and clear buttons when there is no URL
+        sourceEdittext.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0){
+                    analyzeButton.setEnabled(true);
+                    clearButton.setEnabled(true);
+                }
+                else{
+                    analyzeButton.setEnabled(false);
+                    clearButton.setEnabled(false);
+                }
+            }
+        });
 
         pasteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +139,14 @@ public class SourceInputActivity extends AppCompatActivity {
     private void analyzeAction(){
 
         String url = sourceEdittext.getText().toString();
+
         try{
             domain=getDomainName(url);
         }
         catch (URISyntaxException e){
             Toast.makeText(SourceInputActivity.this,"Invalid URL",Toast.LENGTH_SHORT);
         }
+
 
         try {
             String jsonSources = AssetJSONFile("fakeSources.json", SourceInputActivity.this);
@@ -186,10 +216,11 @@ public class SourceInputActivity extends AppCompatActivity {
 //        }
     }
 
-    public static String AssetJSONFile (String filename, Context context) throws IOException {
-        AssetManager manager = context.getAssets();
-        InputStream file = manager.open(filename);
-//        FileInputStream file = openFileInput(SOURCES_FILE_NAME);
+    public String AssetJSONFile (String filename, Context context) throws IOException {
+//        AssetManager manager = context.getAssets();
+//        InputStream file = manager.open(filename);
+        //reading file "sources.json" from internal storage
+        FileInputStream file = openFileInput(SOURCES_FILE_NAME);
         byte[] formArray = new byte[file.available()];
         file.read(formArray);
         file.close();
@@ -262,24 +293,32 @@ public class SourceInputActivity extends AppCompatActivity {
         }
     }
 
-    public void storeSources(String result)
+    protected void storeSources(String result)
     {
-        File file = new File(getFilesDir(), SOURCES_FILE_NAME);
-        FileOutputStream outputStream;
+        boolean status = writeToFile(SOURCES_FILE_NAME, result);
 
-        //saving a json file of sources in internal storage
-        try {
-            outputStream = openFileOutput(SOURCES_FILE_NAME, Context.MODE_PRIVATE);
-            outputStream.write(result.getBytes());
-            outputStream.close();
+        if(status) {
             Toast.makeText(SourceInputActivity.this, "Sources updated", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+        else{
             Toast.makeText(SourceInputActivity.this, "Unable to update sources", Toast.LENGTH_SHORT).show();
         }
+    }
 
-        //file debugging code
-//        String[] files = fileList();
-//        Toast.makeText(SourceInputActivity.this, files[0], Toast.LENGTH_SHORT).show();
+    protected boolean writeToFile(String fileName, String data)
+    {
+        FileOutputStream outputStream;
+        //saving a json file of sources in internal storage
+        try {
+            outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+            outputStream.write(data.getBytes());
+            outputStream.close();
+            Log.i("Sources updating", "source file written successfully");
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

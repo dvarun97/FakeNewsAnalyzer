@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,8 +41,9 @@ public class ResultActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+        resultTextview.setText(intent.getStringExtra("domain"));
         if(intent.getBooleanExtra("domainExists",false)){
-            resultTextview.setText(intent.getStringExtra("domain"));
+
             type1Textview.setText(intent.getStringExtra("type1"));
 
             if(intent.getStringExtra("type2").length() != 0){
@@ -66,7 +68,6 @@ public class ResultActivity extends AppCompatActivity {
             }
 
 
-
         }
         else{
             probablyRealTextView.setVisibility(View.VISIBLE);
@@ -75,6 +76,13 @@ public class ResultActivity extends AppCompatActivity {
             type3Textview.setVisibility(View.GONE);
             notesLL.setVisibility(View.GONE);
         }
+
+
+        //animating views
+        type1Textview.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sample_animation));
+        type2Textview.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sample_animation));
+        type3Textview.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sample_animation));
+        probablyRealTextView.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sample_animation));
 
     }
 

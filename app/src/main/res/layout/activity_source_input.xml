@@ -36,7 +36,8 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/roundbutton"
-                android:text="Clear" />
+                android:text="Clear"
+                android:enabled="false"/>
 
 
             <Button
@@ -46,7 +47,8 @@
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/roundbutton"
-                android:text="Analyze" />
+                android:text="Analyze"
+                android:enabled="false"/>
 
             <ImageButton
                 android:id="@+id/clipboard_button"

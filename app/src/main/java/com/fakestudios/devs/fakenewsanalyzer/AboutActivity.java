@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -14,12 +16,18 @@ public class AboutActivity extends AppCompatActivity {
 
     private String version;
     private TextView sendFeedback_tv, appversion_tv;
+    private TextView appnameTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         this.setFinishOnTouchOutside(false);
+
+        appnameTV = findViewById(R.id.appname_tv);
+
+        //animating app name in about page
+        appnameTV.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sample_animation));
 
         version="1.0";
         try {

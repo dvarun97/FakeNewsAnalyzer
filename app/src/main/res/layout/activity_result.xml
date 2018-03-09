@@ -7,9 +7,12 @@
     tools:context="com.fakestudios.devs.fakenewsanalyzer.ResultActivity">
 
     <LinearLayout
+        android:id="@+id/resultmain_ll"
+        android:layout_above="@id/result_home_button"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:padding="8dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -20,7 +23,9 @@
             android:layout_height="wrap_content"
             android:text="www.fake.com"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
 
         <TextView
@@ -33,7 +38,7 @@
             android:id="@+id/probablyReal_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Probably REAL"
+            android:text="REAL"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:padding="8dp"
@@ -81,28 +86,39 @@
             android:text="type 3"
             android:backgroundTint="@color/yellow"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:id="@+id/notes_ll">
+            android:padding="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Additional Notes: "
-                android:textSize="14sp"/>
+                android:id="@+id/notes_ll"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/result_notes_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:text="This website is probably fake" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Additional Notes"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/result_notes_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:layout_gravity="fill"
+                    android:gravity="center_horizontal"
+                    android:text="This website is probably fake" />
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
 
 
 
@@ -116,6 +132,6 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:background="@drawable/roundbutton"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
 
 </RelativeLayout>
