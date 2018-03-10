@@ -18,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SourceInputActivity" android:label="@string/source_analyser"/>
+        <activity android:name=".SourceInputActivity" android:label="@string/source_analyser">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ResultActivity" />
         <activity android:name=".AboutActivity" android:label="@string/about" />
         <activity android:name=".HelpActivity" android:label="@string/help"></activity>

@@ -50,8 +50,13 @@ public class SourceInputActivity extends AppCompatActivity {
     String domain;
     ProgressBar progressBar;
 
+
+
+
+
     private final String SOURCES_FILE_NAME = "sources.json";
     private final String HISTORY_FILE_NAME = "history.txt";
+    private final String SOURCES_DOWNLOAD_URL = "https://firebasestorage.googleapis.com/v0/b/fake-news-analyzer.appspot.com/o/sources.json?alt=media&token=3445778c-54db-4570-8285-ec50c7bbd61b";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,18 @@ public class SourceInputActivity extends AppCompatActivity {
         updateSourcesButton = (Button) findViewById(R.id.update_sources_button);
 
         sourceEdittext = (EditText) findViewById(R.id.source_input_edittext);
+
+
+        // Get intent, action and MIME type
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                handleSendText(intent); // Handle text being sent
+            }
+        }
+
 
 
         //disabling analyse and clear buttons when there is no URL
@@ -128,12 +145,23 @@ public class SourceInputActivity extends AppCompatActivity {
 //                Toast.makeText(SourceInputActivity.this, "Updating sources...", Toast.LENGTH_SHORT).show();
                updateSourcesButton.setText("Updating...");
                updateSourcesButton.setEnabled(false);
-                new JsonTask().execute("https://firebasestorage.googleapis.com/v0/b/fake-news-analyzer.appspot.com/o/sources.json?alt=media&token=c85b1388-109e-4008-8d5f-c7620ee497c5");
+                new JsonTask().execute(SOURCES_DOWNLOAD_URL);
             }
         });
 
 
 
+    }
+
+    void handleSendText(Intent intent) {
+        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (sharedText != null) {
+            // Update UI to reflect text being shared
+            sourceEdittext.setText(sharedText);
+            analyzeButton.setEnabled(true);
+            clearButton.setEnabled(true);
+
+        }
     }
 
     private void analyzeAction(){
