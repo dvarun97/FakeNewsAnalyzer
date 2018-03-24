@@ -300,7 +300,7 @@ public class SourceInputActivity extends AppCompatActivity {
             }
         }
         else{
-            Toast.makeText(SourceInputActivity.this, "Sources already file exists", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(SourceInputActivity.this, "Sources file already exists", Toast.LENGTH_SHORT).show();
         }
     }
 
