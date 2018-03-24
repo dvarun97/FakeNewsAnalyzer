@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,8 +29,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You can use this tool to analyse the source of the news. We compare the source you entered with pre-defined list of websites and show you the type of source like Conspiracy, Bias etc... This feature also works offline."
+                android:text="You can use this tool to analyse the source of the news. We compare the source you entered with pre-defined list of websites and show you the type of source like Satire, Controversial, Unreliable, Bias, Conspiracy, Rumor, Fake News, Clickbait, Political, Blog, Hate, Junksci(publishes fake science stories) and State(publishes fake news about syrian war). This feature also works offline."
                 android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use Source Analyser from other apps"
+                android:textColor="@color/colorAccent"
+                android:padding="4dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can also use Source Analyser directly from other apps. Just copy a link in any app and click Share and select Fake News Analyser in the Share menu."
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
                 android:padding="4dp"/>
 
 
@@ -46,8 +64,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You can manually update the sources list by clicking on update sources in Source Analyser page. Sources are updated from the server provided there is internet connectivity."
+                android:text="You can manually update the sources list by clicking on update sources in Source Analyser page. Sources are updated from the server provided that there is internet connectivity. Usually the sources are updated monthly, so updating sources once a month is enough."
                 android:textColor="@android:color/black"
+                android:textSize="15sp"
                 android:padding="4dp"/>
 
             <TextView
@@ -64,7 +83,35 @@
                 android:layout_height="wrap_content"
                 android:text="Coming Soon!"
                 android:textColor="@android:color/black"
+                android:textSize="15sp"
                 android:padding="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Misc"
+                android:textColor="@color/colorAccent"
+                android:padding="4dp"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can submit any wrong information about sources through 'Send Feedback' on about page. Please share your valuable feedback and help us in making the app better."
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:padding="4dp"/>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:text="Thank you for using Fake News Analyser."
+                android:padding="4dp" />
 
 
         </LinearLayout>

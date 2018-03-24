@@ -5,14 +5,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.app.ProgressDialog;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
@@ -41,10 +49,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.SortedMap;
 
 public class SourceInputActivity extends AppCompatActivity {
 
-    Button analyzeButton,clearButton, updateSourcesButton;
+    Button analyzeButton,clearButton;
     ImageButton pasteButton;
     EditText sourceEdittext;
     String domain;
@@ -63,12 +72,20 @@ public class SourceInputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_input);
 
+        try {
+            copySourcesFromAssetsToInternalStorage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        android.support.v7.widget.Toolbar mTopToolbar = findViewById(R.id.sourceInput_toolbar);
+        setSupportActionBar(mTopToolbar);
+
         pasteButton = (ImageButton) findViewById(R.id.clipboard_button);
         analyzeButton = (Button) findViewById(R.id.source_analyze_button);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         clearButton = (Button) findViewById(R.id.source_clear_button);
-        updateSourcesButton = (Button) findViewById(R.id.update_sources_button);
 
         sourceEdittext = (EditText) findViewById(R.id.source_input_edittext);
 
@@ -82,6 +99,8 @@ public class SourceInputActivity extends AppCompatActivity {
                 handleSendText(intent); // Handle text being sent
             }
         }
+
+
 
 
 
@@ -139,18 +158,31 @@ public class SourceInputActivity extends AppCompatActivity {
             }
         });
 
-        updateSourcesButton.setOnClickListener( new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(SourceInputActivity.this, "Updating sources...", Toast.LENGTH_SHORT).show();
-               updateSourcesButton.setText("Updating...");
-               updateSourcesButton.setEnabled(false);
-                new JsonTask().execute(SOURCES_DOWNLOAD_URL);
-            }
-        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.source_input_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_update_sources) {
+            new JsonTask().execute(SOURCES_DOWNLOAD_URL);
+            return true;
+        }
 
 
 
+        return super.onOptionsItemSelected(item);
     }
 
     void handleSendText(Intent intent) {
@@ -164,20 +196,29 @@ public class SourceInputActivity extends AppCompatActivity {
         }
     }
 
+
     private void analyzeAction(){
 
         String url = sourceEdittext.getText().toString();
+
+        url.toLowerCase();
+
+        if(Patterns.WEB_URL.matcher(url).matches() == false){
+            Toast.makeText(SourceInputActivity.this, "Please enter valid URL!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         try{
             domain=getDomainName(url);
         }
         catch (URISyntaxException e){
-            Toast.makeText(SourceInputActivity.this,"Invalid URL",Toast.LENGTH_SHORT);
+            Toast.makeText(SourceInputActivity.this,"Enter valid URL",Toast.LENGTH_SHORT);
         }
 
 
         try {
-            String jsonSources = AssetJSONFile("fakeSources.json", SourceInputActivity.this);
+            String jsonSources = readJSONFile();
             JSONObject sourceObj = new JSONObject(jsonSources);
             Iterator iterator = sourceObj.keys();
             JSONObject res=null;
@@ -232,21 +273,10 @@ public class SourceInputActivity extends AppCompatActivity {
         URI uri = new URI(url);
         String domain = uri.getHost();
         return domain.startsWith("www.") ? domain.substring(4) : domain;
-//        URL uri = null;
-//        String domain = null;
-//        try {
-//            uri = new URL(url);
-//            domain = uri.getHost();
-//            Log.d("domain",domain);
-//            return domain.startsWith("www.") ? domain.substring(4) : domain;
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
     }
 
-    public String AssetJSONFile (String filename, Context context) throws IOException {
-//        AssetManager manager = context.getAssets();
-//        InputStream file = manager.open(filename);
+    public String readJSONFile () throws IOException {
+
         //reading file "sources.json" from internal storage
         FileInputStream file = openFileInput(SOURCES_FILE_NAME);
         byte[] formArray = new byte[file.available()];
@@ -255,6 +285,44 @@ public class SourceInputActivity extends AppCompatActivity {
 
         return new String(formArray);
 
+    }
+
+    public void copySourcesFromAssetsToInternalStorage() throws IOException {
+        if(isFileExists(SOURCES_FILE_NAME) == false){
+            Toast.makeText(SourceInputActivity.this, "Copying sources from assets to internal storage for first time installation...", Toast.LENGTH_SHORT).show();
+            //copy sources.json from assets to internal storage
+            String sources = loadJSONFromAsset();
+            if(writeToFile(SOURCES_FILE_NAME, sources)){
+//                Toast.makeText(SourceInputActivity.this, "Copying sources successful.", Toast.LENGTH_SHORT).show();
+
+            } else {
+//                Toast.makeText(SourceInputActivity.this, "Copying sources failed.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(SourceInputActivity.this, "Sources already file exists", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = SourceInputActivity.this.getAssets().open(SOURCES_FILE_NAME);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    public boolean isFileExists(String fname){
+        File file = getBaseContext().getFileStreamPath(fname);
+        return file.exists();
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -282,12 +350,8 @@ public class SourceInputActivity extends AppCompatActivity {
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line+"\n");
-//                    Log.d("Response: ", "> " + line);   //logging json response
-
                 }
-
                 return buffer.toString();
-
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -311,11 +375,7 @@ public class SourceInputActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             progressBar.setVisibility(View.GONE);
-            updateSourcesButton.setText("Update Sources");
-            updateSourcesButton.setEnabled(true);
-
             //store json in a file
             storeSources(result);
         }

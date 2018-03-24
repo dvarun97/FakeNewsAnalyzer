@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.fakestudios.devs.fakenewsanalyzer.SourceInputActivity">
 
-
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/sourceInput_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/HeaderBar"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
     <LinearLayout
@@ -15,19 +23,25 @@
         android:orientation="vertical"
         android:layout_marginTop="16dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Enter URL"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
 
         <EditText
             android:id="@+id/source_input_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:hint="Enter URL" />
+            android:maxLines="4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
 
             <Button
                 android:id="@+id/source_clear_button"
@@ -61,28 +75,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal">
-
-
-
-        <Button
-            android:id="@+id/update_sources_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/roundbutton"
-            android:padding="8dp"
-            android:text="@string/update_sources" />
-
         <ProgressBar
             android:id="@+id/progressbar"
             android:layout_width="wrap_content"
@@ -91,6 +83,9 @@
             android:layout_margin="8dp"
             android:visibility="gone"/>
 
+
+
     </LinearLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

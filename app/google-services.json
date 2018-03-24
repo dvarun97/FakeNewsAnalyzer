@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "202641052341",
+    "firebase_url": "https://fake-news-analyzer.firebaseio.com",
+    "project_id": "fake-news-analyzer",
+    "storage_bucket": "fake-news-analyzer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202641052341:android:a30e21c19d3f6ac0",
+        "android_client_info": {
+          "package_name": "com.fakestudios.devs.fakenewsanalyzer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202641052341-g47tkam0t34va16vqdclltqp7u9rdvmv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fakestudios.devs.fakenewsanalyzer",
+            "certificate_hash": "32efef4bd7d94a117d75cdbfe7daee466701c9bf"
+          }
+        },
+        {
+          "client_id": "202641052341-km52mqhs7vd4i75rldmv7cd7pr11223d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrwvfQ6rpvJMqntUnS7xOXPrrG1s8obvg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202641052341-km52mqhs7vd4i75rldmv7cd7pr11223d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202641052341:android:e8871584ddbd7986",
+        "android_client_info": {
+          "package_name": "com.fakestudios.devs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202641052341-km52mqhs7vd4i75rldmv7cd7pr11223d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrwvfQ6rpvJMqntUnS7xOXPrrG1s8obvg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

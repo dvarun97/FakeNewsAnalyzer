@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    tools:context="com.fakestudios.devs.fakenewsanalyzer.ContentAnalyserActivity">
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/contentInput_toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--style="@style/HeaderBar"-->
+        <!--android:elevation="4dp"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/headline"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"/>
+
+    <EditText
+        android:id="@+id/headline_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/article"
+        android:layout_margin="8dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/article_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="8"
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:id="@+id/contentAnalyse_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundbutton"
+        android:text="@string/Analyse"
+        android:layout_margin="8dp"/>
+
+</LinearLayout>

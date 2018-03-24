@@ -8,7 +8,6 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -18,16 +17,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SourceInputActivity" android:label="@string/source_analyser">
+        <activity
+            android:name=".SourceInputActivity"
+            android:label="@string/source_analyser">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".AboutActivity" android:label="@string/about" />
-        <activity android:name=".HelpActivity" android:label="@string/help"></activity>
+        <activity
+            android:name=".ResultActivity"
+            android:theme="@style/ActionBarTheme"
+            android:label="@string/source_analyser_result"/>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/help"
+            android:theme="@style/ActionBarTheme" />
+        <activity
+            android:name=".ContentAnalyserActivity"
+            android:theme="@style/ActionBarTheme"
+            android:label="@string/content_analyser"/>
     </application>
 
 </manifest>
