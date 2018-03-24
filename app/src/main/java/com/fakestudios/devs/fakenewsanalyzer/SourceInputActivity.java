@@ -289,7 +289,7 @@ public class SourceInputActivity extends AppCompatActivity {
 
     public void copySourcesFromAssetsToInternalStorage() throws IOException {
         if(isFileExists(SOURCES_FILE_NAME) == false){
-            Toast.makeText(SourceInputActivity.this, "Copying sources from assets to internal storage for first time installation...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SourceInputActivity.this, "Copying sources from assets to internal storage for first time installation...", Toast.LENGTH_LONG).show();
             //copy sources.json from assets to internal storage
             String sources = loadJSONFromAsset();
             if(writeToFile(SOURCES_FILE_NAME, sources)){
