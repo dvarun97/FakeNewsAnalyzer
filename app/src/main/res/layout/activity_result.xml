@@ -8,25 +8,24 @@
 
     <LinearLayout
         android:id="@+id/resultmain_ll"
-        android:layout_above="@id/result_home_button"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_alignParentTop="true"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
 
         <TextView
             android:id="@+id/result_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="www.fake.com"
             android:textIsSelectable="true"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:textStyle="bold" />
 
 
         <TextView
@@ -34,58 +33,6 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="is" />
-
-        <TextView
-            android:id="@+id/probablyReal_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="REAL"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:padding="8dp"
-            android:textStyle="bold"
-            android:layout_margin="8dp"
-            android:background="@drawable/roundbutton"
-            android:backgroundTint="@color/realGreen"/>
-
-        <TextView
-            android:id="@+id/result_type1_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="20sp"
-            android:layout_margin="8dp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:background="@drawable/roundbutton"
-            android:text="type 1"
-            android:backgroundTint="@color/yellow"/>
-
-        <TextView
-            android:id="@+id/result_type2_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:layout_margin="8dp"
-            android:textStyle="bold"
-            android:background="@drawable/roundbutton"
-            android:text="type 2"
-            android:backgroundTint="@color/yellow"/>
-
-        <TextView
-            android:id="@+id/result_type3_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:layout_margin="8dp"
-            android:background="@drawable/roundbutton"
-            android:text="type 3"
-            android:backgroundTint="@color/yellow"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -95,26 +42,90 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/notes_ll"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center">
+
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/probablyReal_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Additional Notes"
-                    android:textSize="16sp"
-                    android:gravity="center_horizontal"/>
+                    android:layout_margin="8dp"
+                    android:background="@drawable/roundbutton"
+                    android:backgroundTint="@color/realGreen"
+                    android:padding="8dp"
+                    android:text="REAL"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/result_notes_textview"
+                    android:id="@+id/result_type1_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/roundbutton"
+                    android:backgroundTint="@color/DarkOrange"
+                    android:padding="8dp"
+                    android:text="type 1"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/result_type2_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/roundbutton"
+                    android:backgroundTint="@color/DarkOrange"
+                    android:padding="8dp"
+                    android:text="type 2"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/result_type3_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/roundbutton"
+                    android:backgroundTint="@color/DarkOrange"
+                    android:padding="8dp"
+                    android:text="type 3"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/notes_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textIsSelectable="true"
-                    android:textSize="16sp"
-                    android:layout_gravity="fill"
-                    android:gravity="center_horizontal"
-                    android:text="This website is probably fake" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Additional Notes"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/result_notes_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill"
+                        android:gravity="center_horizontal"
+                        android:text="This website is probably fake"
+                        android:textColor="@android:color/black"
+                        android:textIsSelectable="true"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
 
@@ -122,18 +133,86 @@
         </ScrollView>
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+
+        <TextView
+            android:id="@+id/domain_reachability_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/domain_reachability"
+            android:layout_margin="4dp"
+            android:layout_gravity="center"/>
+
+        <ProgressBar
+            android:id="@+id/domain_reachability_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/domain_reachable_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="@string/domain_reachable"
+            android:textColor="@color/Green"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/domain_unreachable_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="@string/domain_unreachable"
+            android:textColor="@color/Red"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/result_home_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/roundbutton"
+                android:gravity="center"
+                android:text="@string/home" />
+
+            <Button
+                android:id="@+id/open_url_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/roundbutton"
+                android:gravity="center"
+                android:text="@string/open_url"
+                />
+
+
+        </LinearLayout>
+
 
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/result_home_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:background="@drawable/roundbutton"
-        android:layout_margin="8dp"/>
+
 
 </RelativeLayout>

@@ -11,8 +11,14 @@
     <string name="source_analyser">Source Analyser</string>
     <string name="source_analyser_result">Source Analyser Result</string>
     <string name="content_analyser">Content Analyser</string>
+    <string name="analyse_content">Analyse Content</string>
     <string name="home">Home</string>
     <string name="headline">Headline</string>
     <string name="article">Article</string>
     <string name="Analyse">Analyse</string>
+    <string name="stance_detection">Stance Detection</string>
+    <string name="domain_reachability">Checking domain reachability…</string>
+    <string name="domain_reachable">Domain is reachable!</string>
+    <string name="domain_unreachable">Domain is unreachable!</string>
+    <string name="open_url">Go to Domain</string>
 </resources>

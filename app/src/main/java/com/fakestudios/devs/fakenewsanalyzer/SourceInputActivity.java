@@ -3,29 +3,21 @@ package com.fakestudios.devs.fakenewsanalyzer;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.app.ProgressDialog;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,22 +26,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLConnection;
 import java.util.Iterator;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.SortedMap;
 
 public class SourceInputActivity extends AppCompatActivity {
 
@@ -58,9 +45,6 @@ public class SourceInputActivity extends AppCompatActivity {
     EditText sourceEdittext;
     String domain;
     ProgressBar progressBar;
-
-
-
 
 
     private final String SOURCES_FILE_NAME = "sources.json";
@@ -179,9 +163,6 @@ public class SourceInputActivity extends AppCompatActivity {
             new JsonTask().execute(SOURCES_DOWNLOAD_URL);
             return true;
         }
-
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -197,6 +178,7 @@ public class SourceInputActivity extends AppCompatActivity {
     }
 
 
+
     private void analyzeAction(){
 
         String url = sourceEdittext.getText().toString();
@@ -207,7 +189,6 @@ public class SourceInputActivity extends AppCompatActivity {
             Toast.makeText(SourceInputActivity.this, "Please enter valid URL!", Toast.LENGTH_SHORT).show();
             return;
         }
-
 
         try{
             domain=getDomainName(url);
