@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ResultActivity"
+            android:name=".SourceAnalyserResultActivity"
             android:theme="@style/ActionBarTheme"
             android:label="@string/source_analyser_result"/>
         <activity

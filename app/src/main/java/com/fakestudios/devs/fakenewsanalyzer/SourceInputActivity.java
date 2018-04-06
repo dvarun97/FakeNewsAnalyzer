@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLConnection;
 import java.util.Iterator;
 import android.widget.ProgressBar;
 
@@ -229,7 +228,7 @@ public class SourceInputActivity extends AppCompatActivity {
     }
 
     private void displayResult(String domain, String type1, String type2, String type3, String notes,boolean domainExists) {
-        Intent intent = new Intent(SourceInputActivity.this,ResultActivity.class);
+        Intent intent = new Intent(SourceInputActivity.this,SourceAnalyserResultActivity.class);
         intent.putExtra("domain",domain);
         intent.putExtra("type1",type1);
         intent.putExtra("type2",type2);

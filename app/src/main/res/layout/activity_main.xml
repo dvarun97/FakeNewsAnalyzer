@@ -8,9 +8,9 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
+        style="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        style="@style/HeaderBar"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -25,13 +25,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:gravity="center"
             android:text="Analyse"
-            android:textSize="24sp"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/source_button_id"
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/roundbutton"
-            android:textColor="@android:color/black"
-            android:text="source" />
+            android:text="source"
+            android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/content_button_id"

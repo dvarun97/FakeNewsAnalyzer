@@ -17,11 +17,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class ResultActivity extends AppCompatActivity {
+public class SourceAnalyserResultActivity extends AppCompatActivity {
 
-    TextView resultTextview,type1Textview,type2Textview,type3Textview,notesTextview, probablyRealTextView;
+    TextView resultTextview,type1Textview,type2Textview,type3Textview,notesTextview, probablyRealTextView, isTextView;
     ProgressBar progressBar;
-    TextView domainReachabilityTV, domainReachableTV, domainUnreachableTV;
+    TextView  domainReachableTV, domainUnreachableTV;
     LinearLayout notesLL;
     Button homeButton;
     Button goToURL;
@@ -37,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         new UrlChecker().execute("http://" + intent.getStringExtra("domain"));
 
         notesLL = findViewById(R.id.notes_ll);
+        isTextView = findViewById(R.id.is_tv);
         resultTextview = (TextView) findViewById(R.id.result_textview);
         type1Textview = (TextView) findViewById(R.id.result_type1_textview);
         type2Textview = (TextView) findViewById(R.id.result_type2_textview);
@@ -47,7 +48,6 @@ public class ResultActivity extends AppCompatActivity {
         goToURL = findViewById(R.id.open_url_button);
 
         progressBar = findViewById(R.id.domain_reachability_pb);
-        domainReachabilityTV = findViewById(R.id.domain_reachability_tv);
         domainReachableTV = findViewById(R.id.domain_reachable_tv);
         domainUnreachableTV = findViewById(R.id.domain_unreachable_tv);
 
@@ -59,7 +59,7 @@ public class ResultActivity extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+                Intent intent = new Intent(SourceAnalyserResultActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -72,7 +72,7 @@ public class ResultActivity extends AppCompatActivity {
                 url = getIntent().getStringExtra("domain");
                 if (!url.startsWith("http://") && !url.startsWith("https://"))
                     url = "http://" + url;
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(browserIntent);
             }
         });
@@ -106,6 +106,7 @@ public class ResultActivity extends AppCompatActivity {
 
         }
         else{
+            isTextView.setText("is probably");
             probablyRealTextView.setVisibility(View.VISIBLE);
             type1Textview.setVisibility(View.GONE);
             type2Textview.setVisibility(View.GONE);
@@ -144,7 +145,6 @@ public class ResultActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean exists) {
-            domainReachabilityTV.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
             if(exists){
                 domainReachable();
@@ -155,10 +155,12 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     void domainReachable(){
+
         domainReachableTV.setVisibility(View.VISIBLE);
     }
 
     void domainUnreachable(){
+        goToURL.setVisibility(View.GONE);
         domainUnreachableTV.setVisibility(View.VISIBLE);
     }
 }

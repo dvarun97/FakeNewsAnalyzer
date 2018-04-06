@@ -54,12 +54,12 @@
         android:text="@string/analyse_content"
         android:layout_margin="8dp"/>
 
-    <Button
-        android:id="@+id/stanceDetection_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/roundbutton"
-        android:text="@string/stance_detection"
-        android:layout_margin="8dp"/>
+    <!--<Button-->
+        <!--android:id="@+id/stanceDetection_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/roundbutton"-->
+        <!--android:text="@string/stance_detection"-->
+        <!--android:layout_margin="8dp"/>-->
 
 </LinearLayout>

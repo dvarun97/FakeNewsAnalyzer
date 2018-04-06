@@ -37,6 +37,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Why is it showing 'probably Real' ?"
+                android:textColor="@color/colorAccent"
+                android:padding="4dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="We compare the domain you have entered with our list of fake websites and if the domain you have entered is not in that list it may be the case that \n\na) The website is real. \n\nb) The website is fake but we haven't added it in our list yet. \n\nThat's why we are showing it as 'probably Real'"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Use Source Analyser from other apps"
                 android:textColor="@color/colorAccent"
                 android:padding="4dp"
@@ -110,12 +127,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="8dp"
-                android:text="Thank you for using Fake News Analyser."
+                android:text="Thank you for using Fake News Analyser. Do check our website : www.fakenewsanalyser.online"
                 android:padding="4dp" />
 
-
         </LinearLayout>
-
     </ScrollView>
-
 </RelativeLayout>

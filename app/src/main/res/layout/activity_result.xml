@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fakestudios.devs.fakenewsanalyzer.ResultActivity">
+    tools:context="com.fakestudios.devs.fakenewsanalyzer.SourceAnalyserResultActivity">
 
     <LinearLayout
         android:id="@+id/resultmain_ll"
@@ -29,10 +29,12 @@
 
 
         <TextView
+            android:id="@+id/is_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="is" />
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -127,6 +129,8 @@
 
 
 
+
+
             </LinearLayout>
 
 
@@ -141,43 +145,44 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/domain_reachability_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/domain_reachability"
-            android:layout_margin="4dp"
-            android:layout_gravity="center"/>
+            <ProgressBar
+                android:id="@+id/domain_reachability_pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_gravity="center" />
 
-        <ProgressBar
-            android:id="@+id/domain_reachability_pb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_gravity="center" />
+            <TextView
+                android:id="@+id/domain_reachable_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_gravity="center"
+                android:text="@string/domain_reachable"
+                android:textColor="@color/Green"
+                android:textSize="16sp"/>
 
-        <TextView
-            android:id="@+id/domain_reachable_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:text="@string/domain_reachable"
-            android:textColor="@color/Green"
-            android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/domain_unreachable_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_gravity="center"
+                android:text="@string/domain_unreachable"
+                android:textColor="@color/Red"
+                android:textSize="16sp"/>
 
-        <TextView
-            android:id="@+id/domain_unreachable_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:text="@string/domain_unreachable"
-            android:textColor="@color/Red"
-            android:textSize="16sp"/>
+
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:orientation="horizontal"
@@ -206,11 +211,7 @@
                 android:text="@string/open_url"
                 />
 
-
         </LinearLayout>
-
-
-
     </LinearLayout>
 
 

@@ -19,7 +19,7 @@ public class ContentAnalyserActivity extends AppCompatActivity {
         //        setSupportActionBar(mTopToolbar);
 
         Button contentAnalyseButton = findViewById(R.id.contentAnalyse_button);
-        Button stanceDetectionButton = findViewById(R.id.stanceDetection_button);
+//        Button stanceDetectionButton = findViewById(R.id.stanceDetection_button);
 
         contentAnalyseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,11 +28,11 @@ public class ContentAnalyserActivity extends AppCompatActivity {
             }
         });
 
-        stanceDetectionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ContentAnalyserActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        stanceDetectionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(ContentAnalyserActivity.this, "Coming soon!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }
