@@ -21,4 +21,7 @@
     <string name="domain_reachable">Domain is reachable!</string>
     <string name="domain_unreachable">Domain is unreachable!</string>
     <string name="open_url">Go to Domain</string>
+    <string name="clear_history">Clear History</string>
+    <string name="history">History</string>
+    <string name="refresh_history">Refresh History</string>
 </resources>

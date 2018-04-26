@@ -10,4 +10,16 @@
         android:title="@string/update_sources"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_clear_history"
+        android:orderInCategory="103"
+        android:title="@string/clear_history"
+        app:showAsAction="never" />
+
+    <item
+        android:orderInCategory="102"
+        android:id="@+id/action_refresh_history"
+        android:title="@string/refresh_history"
+        app:showAsAction="never" />
+
 </menu>

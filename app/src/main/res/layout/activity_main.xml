@@ -42,13 +42,13 @@
             android:text="source"
             android:textColor="@android:color/black" />
 
-        <Button
-            android:id="@+id/content_button_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/roundbutton"
-            android:text="Content" />
+        <!--<Button-->
+            <!--android:id="@+id/content_button_id"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="16dp"-->
+            <!--android:background="@drawable/roundbutton"-->
+            <!--android:text="Content" />-->
 
     </LinearLayout>
 

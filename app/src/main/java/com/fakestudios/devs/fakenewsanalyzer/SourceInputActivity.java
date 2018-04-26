@@ -4,6 +4,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,9 +15,11 @@ import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -23,11 +27,14 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import android.widget.ProgressBar;
 
@@ -40,11 +47,14 @@ import java.net.URL;
 public class SourceInputActivity extends AppCompatActivity {
 
     Button analyzeButton,clearButton;
+    ArrayList<HistoryItem> historyItems;
     ImageButton pasteButton;
     EditText sourceEdittext;
     String domain;
     ProgressBar progressBar;
-
+    ListView historyLV;
+    private static HIstoryItemAdapter historyAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private final String SOURCES_FILE_NAME = "sources.json";
     private final String HISTORY_FILE_NAME = "history.txt";
@@ -64,13 +74,40 @@ public class SourceInputActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar mTopToolbar = findViewById(R.id.sourceInput_toolbar);
         setSupportActionBar(mTopToolbar);
 
+        historyLV = findViewById(R.id.history_list);
+        historyItems = new ArrayList<>();
+        try {
+            readFromHistoryFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        historyAdapter = new HIstoryItemAdapter(historyItems, SourceInputActivity.this);
+        historyLV.setAdapter(historyAdapter);
+        historyLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HistoryItem historyItem= historyItems.get(position);
+                sourceEdittext.setText(historyItem.getUrl());
+            }
+        });
+
+
         pasteButton = (ImageButton) findViewById(R.id.clipboard_button);
         analyzeButton = (Button) findViewById(R.id.source_analyze_button);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
         clearButton = (Button) findViewById(R.id.source_clear_button);
-
         sourceEdittext = (EditText) findViewById(R.id.source_input_edittext);
+        swipeRefreshLayout = findViewById(R.id.history_swiperefresh);
+
+        swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        refreshHistoryList();
+                    }
+                }
+        );
 
 
         // Get intent, action and MIME type
@@ -82,9 +119,6 @@ public class SourceInputActivity extends AppCompatActivity {
                 handleSendText(intent); // Handle text being sent
             }
         }
-
-
-
 
 
         //disabling analyse and clear buttons when there is no URL
@@ -123,7 +157,6 @@ public class SourceInputActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(SourceInputActivity.this, "Clipboard is empty", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -162,7 +195,30 @@ public class SourceInputActivity extends AppCompatActivity {
             new JsonTask().execute(SOURCES_DOWNLOAD_URL);
             return true;
         }
+        else if(id == R.id.action_clear_history){
+            if(delFile(HISTORY_FILE_NAME)){
+                Toast.makeText(SourceInputActivity.this, "History cleared successfully", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(SourceInputActivity.this, "Unable to clear history. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+            refreshHistoryList();
+        }
+        else if(id == R.id.action_refresh_history){
+            refreshHistoryList();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    void refreshHistoryList() {
+        try {
+            readFromHistoryFile();
+            historyAdapter = new HIstoryItemAdapter(historyItems, SourceInputActivity.this);
+            historyLV.setAdapter(historyAdapter);
+            swipeRefreshLayout.setRefreshing(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void handleSendText(Intent intent) {
@@ -172,15 +228,16 @@ public class SourceInputActivity extends AppCompatActivity {
             sourceEdittext.setText(sharedText);
             analyzeButton.setEnabled(true);
             clearButton.setEnabled(true);
-
         }
     }
-
-
 
     private void analyzeAction(){
 
         String url = sourceEdittext.getText().toString();
+
+        //write url to history file
+        appendToFile(HISTORY_FILE_NAME, url);
+
 
         url.toLowerCase();
 
@@ -255,16 +312,35 @@ public class SourceInputActivity extends AppCompatActivity {
         return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
 
+    void readFromHistoryFile() throws IOException {
+        FileInputStream fis = null;
+        BufferedReader bufferedReader = null;
+        historyItems.clear();
+        try {
+            fis = openFileInput(HISTORY_FILE_NAME);
+            bufferedReader = new BufferedReader(new InputStreamReader(fis));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                historyItems.add(new HistoryItem(line)); //add each url from history file to array list
+            }
+            bufferedReader.close();
+            Collections.reverse(historyItems);
+        } catch (FileNotFoundException e) {
+            historyItems.add(new HistoryItem("Empty"));
+            e.printStackTrace();
+        }
+    }
+
     public String readJSONFile () throws IOException {
 
         //reading file "sources.json" from internal storage
-        FileInputStream file = openFileInput(SOURCES_FILE_NAME);
-        byte[] formArray = new byte[file.available()];
-        file.read(formArray);
-        file.close();
-
+        byte[] formArray;
+        try (FileInputStream file = openFileInput(SOURCES_FILE_NAME)) {
+            formArray = new byte[file.available()];
+            file.read(formArray);
+            file.close();
+        }
         return new String(formArray);
-
     }
 
     public void copySourcesFromAssetsToInternalStorage() throws IOException {
@@ -305,6 +381,7 @@ public class SourceInputActivity extends AppCompatActivity {
         return file.exists();
     }
 
+    //async task for downloading sources from firebase storage
     private class JsonTask extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
@@ -388,5 +465,28 @@ public class SourceInputActivity extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
+    }
+
+    protected boolean appendToFile(String fileName, String data)
+    {
+        FileOutputStream outputStream;
+        data+="\n";
+        //saving a json file of sources in internal storage
+        try {
+            outputStream = openFileOutput(fileName, Context.MODE_APPEND);
+            outputStream.write(data.getBytes());
+            outputStream.close();
+            Log.i("Sources updating", "source file written successfully");
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    protected boolean delFile(String fileName){
+        File file = new File(getFilesDir(), fileName);
+        return file.delete();
     }
 }

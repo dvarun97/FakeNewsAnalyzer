@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mTopToolbar);
 
         Button sourceButton = findViewById(R.id.source_button_id);
-        Button contentButton = findViewById(R.id.content_button_id);
+//        Button contentButton = findViewById(R.id.content_button_id);
 
 
         sourceButton.setOnClickListener(new View.OnClickListener() {
@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        contentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this, "Content Analyser coming soon!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, ContentAnalyserActivity.class);
-                startActivity(intent);
-            }
-        });
+//        contentButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(MainActivity.this, "Content Analyser coming soon!", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(MainActivity.this, ContentAnalyserActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
